@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow as tf
 import os
 from utils.keypoints import extract_keypoints
+from ui_manager import UIManager
 import time
 
 # Cargar el modelo entrenado
@@ -21,6 +22,9 @@ gestures = os.listdir(DATA_PATH)
 
 # Imprimir el número de gestos
 print(f"Número de gestos: {len(gestures)}")
+
+# Inicializar la interfaz gráfica
+ui = UIManager()
 
 # Capturar video
 cap = cv2.VideoCapture(0)
@@ -50,33 +54,22 @@ while cap.isOpened():
             sequence = sequence[-sequence_length:]  # Mantener solo los últimos 'sequence_length' elementos
 
     else:
-        # Rellenar la secuencia a 88 frames si es necesario
-        if hands_in_frame and len(sequence) >= 60:
+        # Si no hay manos en cuadro y hay una secuencia llena, hacer la predicción
+        if hands_in_frame and len(sequence) == sequence_length:
             current_time = time.time()
             if current_time - last_prediction_time >= prediction_interval:  # Verificar el intervalo
-                # Rellenar con ceros hasta la longitud esperada (88)
-                sequence_np = np.array(sequence, dtype=np.float32)
-                if len(sequence_np) < 88:
-                    padding = np.zeros((88 - len(sequence_np), 63))  # Rellenar con ceros
-                    sequence_np = np.vstack([sequence_np, padding])  # Apilar la secuencia con el padding
-
+                sequence_np = np.array(sequence, dtype=np.float32)  # Convertir a array de numpy
                 res = model.predict(np.expand_dims(sequence_np, axis=0))[0]
-
-                # Imprimir los resultados de la predicción
-                print(f"Resultados de la predicción: {res}")
 
                 # Asegúrate de que la predicción tenga la misma longitud que la lista de gestos
                 if len(res) == len(gestures):
                     gesture = gestures[np.argmax(res)]  # Mostrar el gesto reconocido
                     print(f"Gesto reconocido: {gesture}")
 
-                    # Mostrar el gesto en la imagen
-                    cv2.putText(frame, f"Gesto: {gesture}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2,
-                                cv2.LINE_AA)
-
+                    # Mostrar el frame con el gesto reconocido en la interfaz
+                    ui.show_frame(frame, gesture_text=gesture)
                 else:
-                    print(
-                        f"Error: La longitud de res ({len(res)}) no coincide con la longitud de gestures ({len(gestures)}).")
+                    print(f"Error: La longitud de res ({len(res)}) no coincide con la longitud de gestures ({len(gestures)}).")
 
                 last_prediction_time = current_time  # Actualizar el tiempo de la última predicción
 
@@ -85,11 +78,11 @@ while cap.isOpened():
 
         hands_in_frame = False  # No hay manos en cuadro
 
-    # Mostrar la imagen
-    cv2.imshow('Gesture Recognition', frame)
+    # Mostrar la imagen en la interfaz (sin gesto si no hay reconocimiento)
+    ui.show_frame(frame)
 
-    if cv2.waitKey(10) & 0xFF == ord('q'):
+    if ui.wait_key(10) == ord('q'):
         break
 
 cap.release()
-cv2.destroyAllWindows()
+ui.close()
