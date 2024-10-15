@@ -7,7 +7,7 @@ from utils.keypoints import extract_keypoints
 import time
 
 # Cargar el modelo entrenado
-model = tf.keras.models.load_model('../models/gesture_model.h5')
+model = tf.keras.models.load_model('models\gesture_model.h5')
 
 # Inicializar MediaPipe
 mp_hands = mp.solutions.hands
@@ -16,7 +16,7 @@ hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2,
                        min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 # Cargar los nombres de los gestos
-DATA_PATH = '../data'
+DATA_PATH = 'data'
 gestures = os.listdir(DATA_PATH)
 
 # Imprimir el número de gestos
