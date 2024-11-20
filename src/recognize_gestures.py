@@ -29,7 +29,7 @@ ui = UIManager()
 # Capturar video
 cap = cv2.VideoCapture(0)
 sequence = []
-sequence_length = 60
+sequence_length = 116
 hands_in_frame = False  # Estado para saber si hay manos en cuadro
 last_prediction_time = time.time()  # Para controlar el tiempo de predicciones
 prediction_interval = 0.5  # Intervalo mínimo entre predicciones en segundos

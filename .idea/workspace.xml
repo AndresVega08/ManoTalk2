@@ -7,6 +7,7 @@
     <list default="true" id="255d86e5-722a-4d47-b007-dbba2b067285" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/gesture_model.h5" beforeDir="false" afterPath="$PROJECT_DIR$/models/gesture_model.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/recognize_gestures.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/recognize_gestures.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +15,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="interfaz" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -41,8 +47,9 @@
     &quot;Python.capture_gestures.executor&quot;: &quot;Run&quot;,
     &quot;Python.recognize_gestures.executor&quot;: &quot;Run&quot;,
     &quot;Python.train_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ui_manager.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -81,6 +88,16 @@
       <workItem from="1728334972576" duration="3488000" />
       <workItem from="1728403013566" duration="6484000" />
       <workItem from="1728434667787" duration="3324000" />
+      <workItem from="1728572589146" duration="358000" />
+      <workItem from="1728936359148" duration="142000" />
+      <workItem from="1729021467255" duration="3000" />
+      <workItem from="1729201561646" duration="5000" />
+      <workItem from="1729493739869" duration="46000" />
+      <workItem from="1729627102262" duration="5302000" />
+      <workItem from="1729646852024" duration="1751000" />
+      <workItem from="1729658076455" duration="3000" />
+      <workItem from="1729817119777" duration="1000" />
+      <workItem from="1731381579259" duration="14000" />
     </task>
     <servers />
   </component>
@@ -88,8 +105,9 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Manotalk2$capture_gestures.coverage" NAME="capture_gestures Coverage Results" MODIFIED="1728407798872" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/Manotalk2$recognize_gestures.coverage" NAME="recognize_gestures Coverage Results" MODIFIED="1728437831865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/Manotalk2$train_model.coverage" NAME="train_model Coverage Results" MODIFIED="1728436196867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Manotalk2$capture_gestures.coverage" NAME="capture_gestures Coverage Results" MODIFIED="1729631301837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Manotalk2$recognize_gestures.coverage" NAME="recognize_gestures Coverage Results" MODIFIED="1729631999262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Manotalk2$ui_manager.coverage" NAME="ui_manager Coverage Results" MODIFIED="1729648534802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/Manotalk2$train_model.coverage" NAME="train_model Coverage Results" MODIFIED="1729631476278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
