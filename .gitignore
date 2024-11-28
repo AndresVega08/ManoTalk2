@@ -3,10 +3,15 @@
 .idea/
 
 # build output
-src/build/
+build/
+dist/
 
 # venv environment
 venv/
 .venv/
 
 __pycache__/
+
+# python cache
+*.spec
+

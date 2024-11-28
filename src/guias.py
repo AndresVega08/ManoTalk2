@@ -263,6 +263,13 @@ videos = [
 
 ]
 
+def start_guias():
+    global root
+    root = tk.Tk()
+    app = VideoPlayer(root)
+    root.protocol("WM_DELETE_WINDOW", app.stop_video)
+    root.mainloop()
+
 # Crear la aplicación
 app = VideoPlayer(videos)
 app.mainloop()
