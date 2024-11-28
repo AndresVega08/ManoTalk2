@@ -1,5 +1,8 @@
 opencv-python
 mediapipe
-tensorflow
+tensorflow==2.12.0
 numpy
 scikit-learn
+pyttsx3
+imageio[ffmpeg]
+cvzone

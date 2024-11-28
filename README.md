@@ -4,7 +4,7 @@ Este proyecto utiliza MediaPipe y TensorFlow para crear un traductor de gestos b
 
 ## Requisitos
 
-- Python 3.x
+- Python 3.11.0
 - OpenCV
 - MediaPipe
 - TensorFlow

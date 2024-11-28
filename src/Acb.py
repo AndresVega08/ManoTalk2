@@ -194,11 +194,10 @@ class GestureApp:
             labels = [line.strip() for line in file.readlines()]
         return labels
     
-    classifier = Classifier("C:/Users/Juan Ramos Diaz/Desktop/Modelo LSC/Model/keras_model.h5", 
-                        "C:/Users/Juan Ramos Diaz/Desktop/Modelo LSC/Model/labels.txt")
+    classifier = Classifier("models/ABC/keras_model.h5", "models/ABC/labels.txt")
     
     # Carga las etiquetas desde el archivo labels.txt
-    labels = load_labels("C:/Users/Juan Ramos Diaz/Desktop/Modelo LSC/Model/labels.txt")
+    labels = load_labels("models/ABC/labels.txt")
     
     def start_camera(self):
         # Iniciar la cámara
