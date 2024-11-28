@@ -2,16 +2,26 @@ import tkinter as tk
 from tkinter import font
 from PIL import Image, ImageTk
 import cam
+import sys
+import os
+
+
+if getattr(sys, 'frozen', False):
+    # Si estamos corriendo desde un ejecutable
+    base_path = sys._MEIPASS  # Esta es la ruta temporal donde PyInstaller extrae los archivos
+else:
+    # Si estamos corriendo desde el script
+    base_path = os.path.abspath(".")
 
 # Crear la ventana principal
 root = tk.Tk()
 root.title("ManoTalk")
 root.geometry("800x600")
-root.iconbitmap("src\icon\MT2.0.ico")
+root.iconbitmap(os.path.join(base_path,"resources/icon/MT2.0.ico"))  # Ruta al ícono
 
 # Intentar cargar la imagen de fondo
 try:
-    bg_image = Image.open("src\\img\\MT2.0.png")  # Reemplaza con la ruta a tu imagen
+    bg_image = Image.open(os.path.join(base_path, "resources/img/MT2.0.png"))  # Reemplaza con la ruta a tu imagen
     bg_image = bg_image.resize((800, 600), Image.Resampling.LANCZOS)  # Ajustar el tamaño de la imagen
     bg_image = bg_image.convert("RGBA")  # Convertir la imagen a modo RGBA
     alpha = bg_image.split()[3]  # Obtener el canal alfa

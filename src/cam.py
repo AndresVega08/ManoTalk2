@@ -10,10 +10,19 @@ from tkinter import Label, Button, PhotoImage, messagebox
 from PIL import Image, ImageTk
 from utils.keypoints import extract_keypoints
 import time
+import sys
+
+if getattr(sys, 'frozen', False):
+    # Si estamos corriendo desde un ejecutable
+    base_path = sys._MEIPASS  # Esta es la ruta temporal donde PyInstaller extrae los archivos
+else:
+    # Si estamos corriendo desde el script
+    base_path = os.path.abspath(".")
+
 
 
 # Cargar el modelo entrenado
-model = tf.keras.models.load_model('models\gesture_model.h5')
+model = tf.keras.models.load_model(os.path.join(base_path, 'resources\models\gesture_model.h5'))
 
 # Inicializar MediaPipe
 mp_hands = mp.solutions.hands
@@ -22,7 +31,7 @@ hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2,
                        min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 # Cargar los nombres de los gestos
-DATA_PATH = 'data'
+DATA_PATH = os.path.join(base_path, 'resources/data')
 gestures = os.listdir(DATA_PATH)
 
 def mostrar_cam():
@@ -53,7 +62,7 @@ class GestureApp:
         self.root = root
         self.root.title("ManoTalk")
         self.root.geometry("1200x700")
-        self.root.iconbitmap("src\icon\MT2.0.ico")
+        self.root.iconbitmap(os.path.join(base_path, 'resources\icon\MT2.0.ico'))
 
         # Inicializar TTS
         self.tts_engine = pyttsx3.init()
@@ -83,7 +92,7 @@ class GestureApp:
 
         # Cargar icono (opcional)
         try:
-            icon_image = Image.open("src\img\MT2.0.png")  # Reemplaza con la ruta a tu imagen
+            icon_image = Image.open(os.path.join(base_path, "resources\img\MT2.0.png"))  # Reemplaza con la ruta a tu imagen
             icon_image = icon_image.resize((40, 40), Image.Resampling.LANCZOS)
             icon_photo = ImageTk.PhotoImage(icon_image)
             icon_label = tk.Label(title_frame, image=icon_photo, bg="#0C9F0F")
@@ -91,7 +100,7 @@ class GestureApp:
             icon_label.pack(side="left")
 
             # Cargar el ícono de apagado
-            power_icon = Image.open("src/img/Botones/power.png")  # Reemplaza con la ruta a tu ícono
+            power_icon = Image.open(os.path.join(base_path, "resources/img/Botones/power.png"))  # Reemplaza con la ruta a tu ícono
             power_icon = power_icon.resize((24, 24), Image.Resampling.LANCZOS)
             power_icon_photo = ImageTk.PhotoImage(power_icon)
             
@@ -109,17 +118,17 @@ class GestureApp:
             "relief": "flat", "bd": 0, "highlightthickness": 0, "anchor": "w", "width": 12
         }
 
-        self.round_image_inicio = PhotoImage(file="src/img/Botones/InicioBtn.png")
+        self.round_image_inicio = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/InicioBtn.png"))
         self.btn_inicio = Button(self.sidebar, image=self.round_image_inicio, command=start_cam, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
 
-        self.round_image_gestos = PhotoImage(file="src/img/Botones/GestosBtn.png")
+        self.round_image_gestos = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/GestosBtn.png"))
         self.btn_gestos = Button(self.sidebar, image=self.round_image_gestos, command=mostrar_acb, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
 
-        self.round_image_guias = PhotoImage(file="src/img/Botones/GuiasBtn.png")
+        self.round_image_guias = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/GuiasBtn.png"))
         # Cambia el comando del botón para llamar a mostrar_guias y redirigir a la nueva vista
         self.btn_guias = Button(self.sidebar, image=self.round_image_guias, command=mostrar_guias, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
         
-        self.round_image_info = PhotoImage(file="src/img/Botones/infoBtn.png")
+        self.round_image_info = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/InfoBtn.png"))
         self.btn_info = Button(self.sidebar, image=self.round_image_info, command=self.show_info, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
 
         self.btn_salir = Button(self.sidebar, text=" Salir", image=power_icon_photo, command=root.quit,bg="#0C9F0F", fg="#ffffff", font=("Helvetica", 12, "bold"),borderwidth=0, compound="right",padx=10, width=150)
@@ -151,7 +160,7 @@ class GestureApp:
 
         # Imagen al lado del título (reemplaza con la ruta a tu imagen)
         try:
-            title_image = Image.open("src\img\MT2.0.png")  # Asegúrate de reemplazar con la ruta correcta
+            title_image = Image.open(os.path.join(base_path, "resources\img\MT2.0.png"))  # Asegúrate de reemplazar con la ruta correcta
             title_image = title_image.resize((30, 30), Image.Resampling.LANCZOS)
             title_photo = ImageTk.PhotoImage(title_image)
             image_label = tk.Label(title_frame, image=title_photo, bg="white")

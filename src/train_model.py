@@ -80,6 +80,6 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['categ
 model.fit(X_train, y_train, epochs=200, validation_data=(X_test, y_test))
 
 # Guardar el modelo entrenado
-model_save_path = '../models/gesture_model.h5'
+model_save_path = '../resources/models/gesture_model.h5'
 model.save(model_save_path)
 print(f"Modelo guardado en {model_save_path}")

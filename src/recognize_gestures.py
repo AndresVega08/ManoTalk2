@@ -5,9 +5,18 @@ import tensorflow as tf
 import os
 from utils.keypoints import extract_keypoints
 import time
+import sys
+import os
+
+if getattr(sys, 'frozen', False):
+    # Si estamos corriendo desde un ejecutable
+    base_path = sys._MEIPASS  # Esta es la ruta temporal donde PyInstaller extrae los archivos
+else:
+    # Si estamos corriendo desde el script
+    base_path = os.path.abspath(".")
 
 # Cargar el modelo entrenado
-model = tf.keras.models.load_model('models\gesture_model.h5')
+model = tf.keras.models.load_model(os.path.join(base_path, 'resources\models\gesture_model.h5'))
 
 # Inicializar MediaPipe
 mp_hands = mp.solutions.hands
@@ -16,7 +25,7 @@ hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2,
                        min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 # Cargar los nombres de los gestos
-DATA_PATH = 'data'
+DATA_PATH = os.path.join(base_path, 'resources/data')
 gestures = os.listdir(DATA_PATH)
 
 # Imprimir el número de gestos

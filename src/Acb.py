@@ -9,9 +9,18 @@ import numpy as np
 import math
 from tkinter import Button, Label, PhotoImage, messagebox, Scrollbar, Canvas, Frame
 from PIL import Image, ImageTk
+import sys
+
+
+if getattr(sys, 'frozen', False):
+    # Si estamos corriendo desde un ejecutable
+    base_path = sys._MEIPASS  # Esta es la ruta temporal donde PyInstaller extrae los archivos
+else:
+    # Si estamos corriendo desde el script
+    base_path = os.path.abspath(".")
 
 # Cargar los nombres de los gestos
-DATA_PATH = 'data'
+DATA_PATH = os.path.join(base_path, 'resources/data')
 gestures = os.listdir(DATA_PATH)
 
 def mostrar_cam():
@@ -40,12 +49,14 @@ class GestureApp:
         self.root = root
         self.root.title("ManoTalk")
         self.root.geometry("1200x700")
-        self.root.iconbitmap("src\icon\MT2.0.ico")
+        # self.root.iconbitmap("resources\icon\MT2.0.ico")
+
+        self.root.iconbitmap(os.path.join(base_path, "resources","icon","MT2.0.ico"))
 
         # Variables iniciales
         self.cap = None  # Variable para la cámara
         self.detector = HandDetector(maxHands=2)
-        self.classifier = Classifier("models/ABC/keras_model.h5", "models/ABC/labels.txt")
+        self.classifier = Classifier(os.path.join(base_path, "resources", "models", "ABC", "keras_model.h5"), os.path.join(base_path, "resources", "models", "ABC", "labels.txt"))
         
         self.offset = 20
         self.imgSize = 300
@@ -65,9 +76,12 @@ class GestureApp:
         title_label = tk.Label(title_frame, text="ManoTalk", font=title_font, fg="black", bg="#0C9F0F")
         title_label.pack(side="left", padx=(10, 10))
 
+        icon_photo = None
+        power_icon_photo = None
+
         # Cargar icono (opcional)
         try:
-            icon_image = Image.open("src\img\MT2.0.png")  # Reemplaza con la ruta a tu imagen
+            icon_image = Image.open(os.path.join(base_path, "resources", "img", "MT2.0.png"))  # Ruta a la imagen del ícono
             icon_image = icon_image.resize((40, 40), Image.Resampling.LANCZOS)
             icon_photo = ImageTk.PhotoImage(icon_image)
             icon_label = tk.Label(title_frame, image=icon_photo, bg="#0C9F0F")
@@ -75,12 +89,13 @@ class GestureApp:
             icon_label.pack(side="left")
 
             # Cargar el ícono de apagado
-            power_icon = Image.open("src/img/Botones/power.png")  # Reemplaza con la ruta a tu ícono
+            power_icon = Image.open(os.path.join(base_path, "resources/img/Botones/power.png"))  # Ruta al ícono de apagado
             power_icon = power_icon.resize((24, 24), Image.Resampling.LANCZOS)
             power_icon_photo = ImageTk.PhotoImage(power_icon)
 
         except Exception as e:
             print(f"Error al cargar la imagen del icono: {e}")
+
 
         # Crear la línea de separación
         separator = tk.Frame(self.sidebar, height=2, bd=1, relief="sunken", bg="#0C9F0F")
@@ -92,16 +107,16 @@ class GestureApp:
             "relief": "flat", "bd": 0, "highlightthickness": 0, "anchor": "w", "width": 12
         }
 
-        self.round_image_inicio = PhotoImage(file="src/img/Botones/InicioBtn.png")
+        self.round_image_inicio = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/InicioBtn.png"))
         self.btn_inicio = Button(self.sidebar, image=self.round_image_inicio, command=mostrar_cam, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
 
-        self.round_image_gestos = PhotoImage(file="src/img/Botones/GestosBtn.png")
+        self.round_image_gestos = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/GestosBtn.png"))
         self.btn_gestos = Button(self.sidebar, image=self.round_image_gestos, command=mostrar_acb, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
 
-        self.round_image_guias = PhotoImage(file="src/img/Botones/GuiasBtn.png")
+        self.round_image_guias = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/GuiasBtn.png"))
         self.btn_guias = Button(self.sidebar, image=self.round_image_guias, command=mostrar_guias, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
         
-        self.round_image_info = PhotoImage(file="src/img/Botones/infoBtn.png")
+        self.round_image_info = PhotoImage(file=os.path.join(base_path, "resources/img/Botones/infoBtn.png"))
         self.btn_info = Button(self.sidebar, image=self.round_image_info, command=self.show_info, borderwidth=0, highlightthickness=0, bg="#0C9F0F")
 
         self.btn_salir = Button(self.sidebar, text=" Salir", image=power_icon_photo, command=self.quit, bg="#0C9F0F", fg="#ffffff", font=("Helvetica", 12, "bold"), borderwidth=0, compound="right", padx=10, width=150)
@@ -143,7 +158,7 @@ class GestureApp:
         self.video_label = Label(self.video_frame)
         self.video_label.grid(row=0, column=2)  # Mantener el video_label en la columna 2
         # Cargar las imágenes desde la carpeta
-        self.load_images("src\img\Abecedario LSC")  # Cambia "path/to/images_folder" por la ruta de la carpeta
+        self.load_images(os.path.join(base_path, "resources/img/Abecedario LSC"))  # Cambia "path/to/images_folder" por la ruta de la carpeta
 
         # Imagen adicional encima del botón "Iniciar Cámara"
         try:
@@ -194,10 +209,10 @@ class GestureApp:
             labels = [line.strip() for line in file.readlines()]
         return labels
     
-    classifier = Classifier("models/ABC/keras_model.h5", "models/ABC/labels.txt")
+    classifier = Classifier(os.path.join(base_path, "resources/models/ABC/keras_model.h5"), os.path.join(base_path, "resources/models/ABC/labels.txt"))
     
     # Carga las etiquetas desde el archivo labels.txt
-    labels = load_labels("models/ABC/labels.txt")
+    labels = load_labels(os.path.join(base_path, "resources/models/ABC/labels.txt"))
     
     def start_camera(self):
         # Iniciar la cámara
