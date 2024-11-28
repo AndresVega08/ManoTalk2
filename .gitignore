@@ -1,0 +1,12 @@
+
+# config editor
+.idea/
+
+# build output
+src/build/
+
+# venv environment
+venv/
+.venv/
+
+__pycache__/
