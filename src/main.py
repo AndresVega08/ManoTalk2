@@ -7,10 +7,11 @@ import cam
 root = tk.Tk()
 root.title("ManoTalk")
 root.geometry("800x600")
+root.iconbitmap("src\icon\MT2.0.ico")
 
 # Intentar cargar la imagen de fondo
 try:
-    bg_image = Image.open("src\\img\\MT.png")  # Reemplaza con la ruta a tu imagen
+    bg_image = Image.open("src\\img\\MT2.0.png")  # Reemplaza con la ruta a tu imagen
     bg_image = bg_image.resize((800, 600), Image.Resampling.LANCZOS)  # Ajustar el tamaño de la imagen
     bg_image = bg_image.convert("RGBA")  # Convertir la imagen a modo RGBA
     alpha = bg_image.split()[3]  # Obtener el canal alfa
@@ -26,14 +27,15 @@ except Exception as e:
 
 # Crear el texto "ManoTalk" y centrarlo
 title_font = font.Font(family="Helvetica", size=24, weight="bold")
-title_label = tk.Label(root, text="ManoTalk", font=title_font, )  # Omite el bg
+title_label = tk.Label(root, text="ManoTalk", font=title_font, fg="#ffffff",bg="#0C9F0F", bd=0)  # Sin fondo ni borde
 title_label.pack(pady=(150, 0))  # Espacio arriba, no especificado abajo para centrar
 
 # Crear el texto de descripción y centrarlo
 desc_font = font.Font(family="Helvetica", size=12)
 desc_label = tk.Label(root, text="Plataforma para el aprendizaje básico de lenguaje\nde señas colombiano LCS",
-                      font=desc_font, fg="black")  # Omite el bg
+                      font=desc_font, fg="#ffffff",bg="#0C9F0F", bd=0)  # Sin fondo ni borde
 desc_label.pack(pady=(10, 0))  # Espacio arriba, no especificado abajo para centrar
+
 
 # Crear botón de "Empezar" y centrarlo
 def on_start():
@@ -41,7 +43,7 @@ def on_start():
     root.destroy()  # Cerrar la ventana actual
     cam.start_cam()  # Llamar a la función para iniciar la vista cam
 
-start_button = tk.Button(root, text="Empezar", font=("Helvetica", 14), bg="#333333", fg="white", command=on_start)
+start_button = tk.Button(root, text="Empezar", font=("Helvetica", 14), fg="#ffffff",bg="#0C9F0F", command=on_start)
 start_button.pack(pady=(20, 0))  # Espacio arriba, no especificado abajo para centrar
 
 root.mainloop()
